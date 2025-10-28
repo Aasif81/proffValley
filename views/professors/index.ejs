@@ -1,0 +1,52 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+  <h1 class="text-center fw-bold mb-4">All Professors</h1>
+
+  <!-- 🔹 Professor Cards or No Results Message -->
+  <% if (professors.length > 0) { %>
+    <div class="row g-4">
+      <% professors.forEach(prof => { %>
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 rounded-4 h-100 hover-card">
+            <div class="card-body text-center">
+             <img 
+              src="<%= prof.image && prof.image.url ? prof.image.url : '/images/default-professor.jpg' %>" 
+              alt="<%= prof.name %>" 
+              width="100"
+              height="100"
+              style="object-fit: cover;"
+              class="professor-img">
+              <h5 class="card-title fw-bold"><%= prof.name %></h5>
+              <p class="text-muted mb-1"><%= prof.department %></p>
+
+              <div class="d-flex justify-content-center align-items-center mb-2">
+                <i class="fa fa-star text-warning"></i>
+                <span class="fw-semibold ms-1 text-dark">
+                  <%= prof.averageRating ? prof.averageRating.toFixed(2) : 'N/A' %>
+                </span>
+              </div>
+
+              <a href="/professors/<%= prof._id %>" class="btn btn-outline-primary rounded-pill w-75">
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } else if (typeof query !== 'undefined' && query.trim() !== '') { %>
+    <!-- Show only when user actually searches -->
+    <p class="text-muted text-center mt-4">
+      No professors found matching "<%= query %>".
+    </p>
+  <% } else { %>
+    <!-- Default message when no professors in database -->
+    <p class="text-muted text-center mt-4">
+      No professors available yet.
+    </p>
+  <% } %>
+</div>
+
+
+

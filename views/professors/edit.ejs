@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+  <h2>Edit Professor Info</h2>
+
+  <form action="/professors/<%= professor._id %>?_method=PUT" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input name="professor[name]" type="text" value="<%= professor.name %>" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Department</label>
+      <input name="professor[department]" type="text" value="<%= professor.department %>" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">University</label>
+      <input name="professor[university]" type="text" value="<%= professor.university %>" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Profile Image URL</label>
+      <input name="professor[image]" type="text" value="<%= professor.image %>" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea name="professor[description]" class="form-control" rows="4"><%= professor.description %></textarea>
+    </div>
+
+    <button class="btn btn-primary">Update Professor</button>
+  </form>
+</div>
+
+<%- include('../includes/footer') %>

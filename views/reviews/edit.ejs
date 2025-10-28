@@ -1,0 +1,45 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container py-5">
+  <div class="card shadow-sm p-4">
+    <h3 class="fw-bold mb-4">Edit Your Review</h3>
+
+    <form action="/professors/<%= professorId %>/reviews/<%= review._id %>?_method=PUT" method="POST">
+      <div class="mb-3">
+        <label class="form-label">Your Review</label>
+        <textarea name="review[body]" class="form-control" rows="4"><%= review.body %></textarea>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Attendance</label>
+          <select name="review[attendance]" class="form-select">
+            <% for (let i = 1; i <= 5; i++) { %>
+              <option value="<%= i %>" <%= review.attendance === i ? 'selected' : '' %>><%= '⭐'.repeat(i) %></option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Grading</label>
+          <select name="review[grading]" class="form-select">
+            <% for (let i = 1; i <= 5; i++) { %>
+              <option value="<%= i %>" <%= review.grading === i ? 'selected' : '' %>><%= '⭐'.repeat(i) %></option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">FYP Support</label>
+          <select name="review[fypSupport]" class="form-select">
+            <% for (let i = 1; i <= 5; i++) { %>
+              <option value="<%= i %>" <%= review.fypSupport === i ? 'selected' : '' %>><%= '⭐'.repeat(i) %></option>
+            <% } %>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update Review</button>
+    </form>
+  </div>
+</div>

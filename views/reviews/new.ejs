@@ -1,0 +1,67 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="col-md-6 mx-auto mt-5">
+  <h2 class="text-center mb-4">Leave a Review for <%= professor.name %></h2>
+
+  <form action="/professors/<%= professor._id %>/reviews" method="POST">
+    
+    <!-- Star Rating -->
+    <div class="mb-3 text-center">
+      <label class="form-label d-block fw-bold">Your Rating</label>
+      <div id="starRating" class="d-inline-block">
+        <% for (let i = 1; i <= 5; i++) { %>
+          <i class="fa-solid fa-star fs-3 star" data-value="<%= i %>"></i>
+        <% } %>
+      </div>
+      <input type="hidden" id="ratingInput" name="review[rating]" required>
+    </div>
+
+    <!-- Comment -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Your Comment</label>
+      <textarea
+        name="review[comment]"
+        rows="3"
+        class="form-control"
+        placeholder="Write something about the professor..."
+        required
+      ></textarea>
+    </div>
+
+    <button class="btn btn-primary w-100">Submit Review</button>
+  </form>
+</div>
+
+<script>
+  // ⭐ Star Rating Logic
+  const stars = document.querySelectorAll('.star');
+  const ratingInput = document.getElementById('ratingInput');
+  let selected = 0;
+
+  stars.forEach(star => {
+    star.addEventListener('mouseover', () => {
+      resetStars();
+      highlight(star.dataset.value);
+    });
+
+    star.addEventListener('mouseout', () => {
+      resetStars();
+      if (selected > 0) highlight(selected);
+    });
+
+    star.addEventListener('click', () => {
+      selected = star.dataset.value;
+      ratingInput.value = selected;
+    });
+  });
+
+  function highlight(count) {
+    for (let i = 0; i < count; i++) {
+      stars[i].classList.add('text-warning');
+    }
+  }
+
+  function resetStars() {
+    stars.forEach(s => s.classList.remove('text-warning'));
+  }
+</script>

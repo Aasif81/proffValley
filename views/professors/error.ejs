@@ -1,0 +1,9 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5 text-center">
+  <h2 class="text-danger">Oops! Something went wrong 😢</h2>
+  <p><%= err.message || "An unexpected error occurred." %></p>
+  <a href="/professors" class="btn btn-outline-primary">Go Back to Professors</a>
+</div>
+
+<%- include('../includes/footer') %>
